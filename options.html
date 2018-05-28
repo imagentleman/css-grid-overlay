@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>CSS Grid Overlay - Settings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(MaterialIcons-Regular.woff2) format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 300;
+      src: local('Roboto Light'), local('Roboto-Light'), url(Roboto-Light.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Roboto'), local('Roboto-Regular'), url(Roboto-Regular.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: local('Roboto Medium'), local('Roboto-Medium'), url(Roboto-Medium.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      /* Preferred icon size */
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+
+      /* Support for all WebKit browsers. */
+      -webkit-font-smoothing: antialiased;
+      /* Support for Safari and Chrome. */
+      text-rendering: optimizeLegibility;
+    }
+  </style>
+
+  <link rel="stylesheet" type="text/css" media="screen" href="material-components-web.min.css" />
+
+  <style>
+    :root {
+      --mdc-theme-primary: #202124;
+      --mdc-theme-secondary: #EA178C;
+    }
+
+    body {
+      color: #5f6368;
+      margin: 0;
+    }
+
+    header {
+      height: 72px;
+    }
+
+    h1,
+    h3 {
+      color: #202124;
+    }
+
+    .page__content {
+      display: flex;
+      margin-top: 72px;
+    }
+
+    .page__drawer {
+      border-right: 1px solid #e5e5e5;
+      box-sizing: border-box;
+      height: calc(100vh - 72px);
+      overflow: auto;
+      padding: 30px 24px;
+      width: 280px;
+    }
+
+    .page__main-section {
+      flex: 1;
+    }
+
+    .page__article {
+      margin: 0 auto;
+      max-width: 760px;
+      padding: 0 30px 30px;
+    }
+
+    .page__switch+.page__switch {
+      margin-top: 20px;
+    }
+
+    .ctas {
+      display: flex;
+    }
+
+    .ctas .mdc-switch {
+      align-items: center;
+      display: flex;
+    }
+
+    .ctas .mdc-switch-label {
+      align-items: center;
+      display: flex;
+    }
+
+    #button-delete {
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    .mdc-toolbar__row {
+      height: 100%;
+    }
+
+    .mdc-toolbar__section {
+      align-items: center;
+    }
+
+    .mdc-fab {
+      bottom: 30px;
+      position: fixed;
+      right: 24px;
+    }
+
+    .mdc-text-field {
+      margin-bottom: 48px;
+    }
+
+    .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+      color: var(--mdc-theme-secondary);
+    }
+
+    .mdc-switch-label {
+      font-family: 'Roboto', sans-serif;
+      margin-left: 10px;
+    }
+
+    .mdc-button {
+      display: none;
+    }
+
+    .mdc-list-item {
+      cursor: pointer;
+    }
+
+    .mdc-snackbar {
+      z-index: 1337;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mdc-toolbar mdc-toolbar--fixed">
+    <div class="mdc-toolbar__row">
+      <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+        <span class="mdc-toolbar__menu-icon">
+          <i class="material-icons">
+            grid_on
+          </i>
+        </span>
+
+        <span class="mdc-toolbar__title">CSS Grid Overlay Settings</span>
+      </section>
+    </div>
+  </header>
+
+  <div class="page__content">
+    <div class="page__drawer">
+      <h3 class="mdc-typography--headline6">Display Options</h3>
+
+      <div class="page__switch">
+        <div class="mdc-switch">
+          <input type="checkbox" id="border-switch" class="mdc-switch__native-control" role="switch">
+          <div class="mdc-switch__background">
+            <div class="mdc-switch__knob"></div>
+          </div>
+        </div>
+        <label for="border-switch" class="mdc-switch-label">Borders</label>
+      </div>
+
+      <div class="page__switch">
+        <div class="mdc-switch">
+          <input type="checkbox" id="backgrounds-switch" class="mdc-switch__native-control" role="switch">
+          <div class="mdc-switch__background">
+            <div class="mdc-switch__knob"></div>
+          </div>
+        </div>
+        <label for="bg-colors-switch" class="mdc-switch-label">Background Colors</label>
+      </div>
+
+      <h3 class="mdc-typography--headline6">Presets</h3>
+
+      <ul class="mdc-list">
+      </ul>
+    </div>
+
+    <section class="page__main-section">
+      <article class="page__article">
+        <h1 id="headline" class="mdc-typography--headline3">Current Preset</h1>
+
+        <div class="input--name mdc-text-field">
+          <input type="text" id="input" class="mdc-text-field__input">
+          <label class="mdc-floating-label" for="my-text-field">Name</label>
+          <div class="mdc-line-ripple"></div>
+        </div>
+
+        <div class="input--preset mdc-text-field mdc-text-field--fullwidth mdc-text-field--textarea">
+          <textarea id="textarea" class="mdc-text-field__input" rows="13" cols="40"></textarea>
+          <label for="textarea" class="mdc-floating-label">Preset Configuration</label>
+        </div>
+
+        <div class="ctas">
+          <button id="button-save" class="mdc-button mdc-button--raised">
+            Save
+          </button>
+
+          <button id="button-delete" class="mdc-button mdc-button--raised">
+            delete
+          </button>
+
+          <div id="apply-switch-container" class="mdc-switch">
+            <input type="checkbox" id="apply-switch" class="mdc-switch__native-control" role="switch" checked>
+            <div class="mdc-switch__background">
+              <div class="mdc-switch__knob"></div>
+            </div>
+          </div>
+          <label id="apply-switch-label" for="apply-switch" class="mdc-switch-label">Select</label>
+        </div>
+      </article>
+
+      <button class="mdc-fab material-icons" aria-label="Favorite">
+        <span class="mdc-fab__icon">
+          add
+        </span>
+      </button>
+    </section>
+  </div>
+
+  <div id="snackbar" class="mdc-snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+    <div class="mdc-snackbar__text"></div>
+    <div class="mdc-snackbar__action-wrapper">
+      <button type="button" class="mdc-snackbar__action-button"></button>
+    </div>
+  </div>
+
+  <script src="material-components-web.min.js"></script>
+  <script src="options.js"></script>
+</body>
+
+</html>
