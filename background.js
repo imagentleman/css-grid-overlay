@@ -121,6 +121,11 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   start(tab);
 });
 
+chrome.tabs.onRemoved.addListener(function(tabId) {
+  delete activeTabs[tabId];
+  delete readyTabs[tabId];
+});
+
 chrome.tabs.onActivated.addListener(function(activeInfo) {
   restart({ id: activeInfo.tabId });
 });
