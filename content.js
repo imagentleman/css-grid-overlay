@@ -82,6 +82,16 @@ function init(preset, displayBorder, displayBackgrounds) {
       removeStyle(id);
 
       const style = document.createElement("style");
+      let maxWidth;
+
+      if (typeof(breakpoint.maxWidth) === 'number') {
+        maxWidth = `${breakpoint.maxWidth}px`;
+      } else if (typeof(breakpoint.maxWidth) === 'string') {
+        maxWidth = breakpoint.maxWidth;
+      } else {
+        maxWidth = 'none';
+      }
+
       style.id = id;
       style.innerHTML = addStyles({
         index,
@@ -90,9 +100,7 @@ function init(preset, displayBorder, displayBackgrounds) {
         margins: breakpoint.margins,
         gutters: breakpoint.gutters,
         columns: breakpoint.columns,
-        maxWidth: `${
-          breakpoint.maxWidth ? breakpoint.maxWidth + "px" : "none"
-        }`,
+        maxWidth: maxWidth,
         borderStyle: displayBorder ? "1px solid #EA178C" : "0",
         displayBackgrounds
       });
