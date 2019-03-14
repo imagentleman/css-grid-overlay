@@ -1,4 +1,9 @@
 function addStyles(style) {
+  const gutters =
+    style.gutters.indexOf && style.gutters.indexOf("%") !== -1
+      ? style.gutters
+      : `${style.gutters}px`;
+
   return `
     #chrome-extension-css-grid-overlay-${style.index} {
       display: none;
@@ -38,7 +43,7 @@ function addStyles(style) {
         border-right: ${style.borderStyle};
         box-sizing: border-box;
         height: 100vh;
-        margin: 0 ${style.gutters}px;
+        margin: 0 ${gutters};
         width: calc(100% / ${style.columns});
       }
     
@@ -84,12 +89,12 @@ function init(preset, displayBorder, displayBackgrounds) {
       const style = document.createElement("style");
       let maxWidth;
 
-      if (typeof(breakpoint.maxWidth) === 'number') {
+      if (typeof breakpoint.maxWidth === "number") {
         maxWidth = `${breakpoint.maxWidth}px`;
-      } else if (typeof(breakpoint.maxWidth) === 'string') {
+      } else if (typeof breakpoint.maxWidth === "string") {
         maxWidth = breakpoint.maxWidth;
       } else {
-        maxWidth = 'none';
+        maxWidth = "none";
       }
 
       style.id = id;
