@@ -15,7 +15,7 @@ function addStyles(style) {
           style.displayBackgrounds ? "rgba(0, 191, 165, .3" : "transparent"
         });
         height: 100vh;
-        left: 0;
+        left: ${style.offset}px;
         padding-left: ${style.margins}px;
         padding-right: ${style.margins}px;
         pointer-events: none;
@@ -24,7 +24,7 @@ function addStyles(style) {
         top: 0;
         z-index: 13371337;
       }
-    
+
       #chrome-extension-css-grid-overlay-${style.index} {
         background-color: ${
           style.displayBackgrounds ? "rgba(0, 231, 255, .3" : "transparent"
@@ -34,7 +34,7 @@ function addStyles(style) {
         margin: 0 auto;
         max-width: ${style.maxWidth};
       }
-    
+
       .chrome-extension-css-grid-overlay__column {
         background-color: ${
           style.displayBackgrounds ? "rgba(234, 23, 140, .3)" : "transparent"
@@ -46,11 +46,11 @@ function addStyles(style) {
         margin: 0 ${gutters};
         width: calc(100% / ${style.columns});
       }
-    
+
       .chrome-extension-css-grid-overlay__column:first-child {
         margin-left: 0;
       }
-    
+
       .chrome-extension-css-grid-overlay__column:last-child {
         margin-right: 0;
       }
@@ -107,6 +107,7 @@ function init(preset, displayBorder, displayBackgrounds) {
         columns: breakpoint.columns,
         maxWidth: maxWidth,
         borderStyle: displayBorder ? "1px solid #EA178C" : "0",
+        offset: breakpoint.offset ? breakpoint.offset : 0,
         displayBackgrounds
       });
 
