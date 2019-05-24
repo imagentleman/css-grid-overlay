@@ -14,14 +14,14 @@ function addStyles(style) {
         background-color: ${
           style.displayBackgrounds ? "rgba(0, 191, 165, .3" : "transparent"
         });
-        height: 100vh;
-        left: ${style.offset}px;
+        top: ${style.offsetTop}px;
+        right: ${style.offsetRight}px;
+        bottom: ${style.offsetBottom}px;
+        left: ${style.offsetLeft}px;
         padding-left: ${style.margins}px;
         padding-right: ${style.margins}px;
         pointer-events: none;
         position: fixed;
-        right: 0;
-        top: 0;
         z-index: 13371337;
       }
 
@@ -30,7 +30,7 @@ function addStyles(style) {
           style.displayBackgrounds ? "rgba(0, 231, 255, .3" : "transparent"
         });
         display: flex;
-        height: 100vh;
+        height: 100%;
         margin: 0 auto;
         max-width: ${style.maxWidth};
       }
@@ -42,7 +42,7 @@ function addStyles(style) {
         border-left: ${style.borderStyle};
         border-right: ${style.borderStyle};
         box-sizing: border-box;
-        height: 100vh;
+        height: 100%;
         margin: 0 ${gutters};
         width: calc(100% / ${style.columns});
       }
@@ -107,7 +107,10 @@ function init(preset, displayBorder, displayBackgrounds) {
         columns: breakpoint.columns,
         maxWidth: maxWidth,
         borderStyle: displayBorder ? "1px solid #EA178C" : "0",
-        offset: breakpoint.offset ? breakpoint.offset : 0,
+        offsetTop: breakpoint.offsetTop ? breakpoint.offsetTop : 0,
+        offsetRight: breakpoint.offsetRight ? breakpoint.offsetRight : 0,
+        offsetBottom: breakpoint.offsetBottom ? breakpoint.offsetBottom : 0,
+        offsetLeft: breakpoint.offsetLeft ? breakpoint.offsetLeft : 0,
         displayBackgrounds
       });
 

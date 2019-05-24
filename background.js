@@ -6,8 +6,7 @@ const templatePreset = [
     margins: 16,
     gutters: 16,
     from: 0,
-    to: 599,
-    offset: 0
+    to: 599
   }
 ];
 const defaultPreset = [
@@ -16,24 +15,21 @@ const defaultPreset = [
     margins: 16,
     gutters: 16,
     from: 0,
-    to: 599,
-    offset: 0
+    to: 599
   },
   {
     columns: 8,
     margins: 16,
     gutters: 16,
     from: 600,
-    to: 719,
-    offset: 0
+    to: 719
   },
   {
     columns: 8,
     margins: 24,
     gutters: 24,
     from: 720,
-    to: 839,
-    offset: 0
+    to: 839
   },
   {
     columns: 12,
@@ -41,7 +37,6 @@ const defaultPreset = [
     gutters: 24,
     from: 840,
     to: 7680, // 8k
-    offset: 0,
     maxWidth: 1440
   }
 ];
