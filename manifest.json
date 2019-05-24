@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "CSS Grid Overlay",
-  "version": "5",
+  "version": "6",
   "description":
     "Easily check the grid alignment of your page across breakpoints.",
   "icons": {
