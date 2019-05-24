@@ -101,7 +101,7 @@ function init(preset, displayBorder, displayBackgrounds) {
       style.innerHTML = addStyles({
         index,
         from: breakpoint.from,
-        to: breakpoint.to,
+        to: breakpoint.to ? breakpoint.to : 7680,
         margins: breakpoint.margins,
         gutters: breakpoint.gutters,
         columns: breakpoint.columns,

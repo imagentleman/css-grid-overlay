@@ -1,15 +1,20 @@
 const activeTabs = {};
 const readyTabs = {};
-const templatePreset = [
+const templatePreset = `[
   {
-    columns: 4,
-    margins: 16,
-    gutters: 16,
-    from: 0,
-    to: 599,
-    offsetLeft: 0
+    "columns": 4,
+    "margins": 16,
+    "gutters": 16,
+    "from": 0,
+    // Optional values
+    // "to": 599,
+    // "maxWidth": 1440,
+    // "offsetTop": 0,
+    // "offsetRight": 0,
+    // "offsetBottom": 0,
+    // "offsetLeft": 0
   }
-];
+]`;
 const defaultPreset = [
   {
     columns: 4,

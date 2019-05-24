@@ -115,7 +115,7 @@ function drawPreset() {
     textarea.value = JSON.stringify(activePreset.preset, null, 2);
     textarea.focus();
   } else if (viewMode === "new") {
-    textarea.value = JSON.stringify(templatePreset.preset, null, 2);
+    textarea.value = templatePreset.preset;
     textarea.focus();
   } else if (viewMode === "deleted") {
     textarea.value = JSON.stringify(activePreset.preset, null, 2);
@@ -316,7 +316,7 @@ function savePreset() {
             }
           );
         } catch (e) {
-          showMessage("The Preset is not properly formatted.", "Dismiss");
+          showMessage("The Preset must be valid JSON.", "Dismiss");
         }
       }
     );
