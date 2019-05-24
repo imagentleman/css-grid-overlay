@@ -6,7 +6,8 @@ const templatePreset = [
     margins: 16,
     gutters: 16,
     from: 0,
-    to: 599
+    to: 599,
+    offsetLeft: 0
   }
 ];
 const defaultPreset = [
