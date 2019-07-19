@@ -3,12 +3,19 @@ const readyTabs = {};
 const templatePreset = `[
   {
     "columns": 4,
-    "margins": 16,
-    "gutters": 16,
-    "from": 0,
+    "margins": 16, // px before and after the first and last column
+    // this gutters work like margins: 
+    // if distance between columns is 32px, gutters are 16
+    "gutters": 16, 
+    "from": 0, // start of breakpoint in px
     // Optional values
-    // "to": 599,
-    // "maxWidth": 1440,
+    // "to": 599, end of breakpoint in px
+    // grid will be centered after this maxWidth in px
+    // otherwise it'll be full width
+    // "maxWidth": 1440, 
+    // if you want to move the grid 
+    // (e.g. in a style guide with a left sidebar
+    // you'd use offsetLeft to push the grid to the right
     // "offsetTop": 0,
     // "offsetRight": 0,
     // "offsetBottom": 0,
