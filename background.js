@@ -19,7 +19,12 @@ const templatePreset = `[
     // "offsetTop": 0,
     // "offsetRight": 0,
     // "offsetBottom": 0,
-    // "offsetLeft": 0
+    // "offsetLeft": 0,
+    // "backgroundColors": {
+    //   "column": "rgba(234, 23, 140, .3)",
+    //   "innerContainer": "rgba(0, 231, 255, .3)",
+    //   "outerContainer": "rgba(0, 191, 165, .3)"
+    // },
   }
 ]`;
 const defaultPreset = [
