@@ -4,7 +4,7 @@ const templatePreset = `[
   {
     "columns": 4,
     "margins": 16, // px before and after the first and last column
-    // this gutters work like margins: 
+    // these gutters work like margins: 
     // if distance between columns is 32px, gutters are 16
     "gutters": 16, 
     "from": 0, // start of breakpoint in px
@@ -21,10 +21,10 @@ const templatePreset = `[
     // "offsetBottom": 0,
     // "offsetLeft": 0,
     // "backgroundColors": {
-    //   "column": "rgba(234, 23, 140, .3)",
-    //   "innerContainer": "rgba(0, 231, 255, .3)",
-    //   "outerContainer": "rgba(0, 191, 165, .3)"
-    // },
+    //   "columns": "rgba(234, 23, 140, .3)",
+    //   "gutters": "rgba(0, 231, 255, .3)",
+    //   "margins": "rgba(0, 191, 165, .3)"
+    // }
   }
 ]`;
 const defaultPreset = [
