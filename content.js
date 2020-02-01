@@ -12,8 +12,8 @@ function addStyles(style) {
     @media (min-width: ${style.from}px) and (max-width: ${style.to}px) {
       #chrome-extension-css-grid-overlay-container {
         background-color: ${
-          style.displayBackgrounds ? "rgba(0, 191, 165, .3" : "transparent"
-        });
+          style.displayBackgrounds ? style.outerContainerBackgroundColor : "transparent"
+        };
         top: ${style.offsetTop}px;
         right: ${style.offsetRight}px;
         bottom: ${style.offsetBottom}px;
@@ -27,8 +27,8 @@ function addStyles(style) {
 
       #chrome-extension-css-grid-overlay-${style.index} {
         background-color: ${
-          style.displayBackgrounds ? "rgba(0, 231, 255, .3" : "transparent"
-        });
+          style.displayBackgrounds ? style.innerContainerBackgroundColor : "transparent"
+        };
         display: flex;
         height: 100%;
         margin: 0 auto;
@@ -37,7 +37,7 @@ function addStyles(style) {
 
       .chrome-extension-css-grid-overlay__column {
         background-color: ${
-          style.displayBackgrounds ? "rgba(234, 23, 140, .3)" : "transparent"
+          style.displayBackgrounds ? style.columnBackgroundColor : "transparent"
         };
         border-left: ${style.borderStyle};
         border-right: ${style.borderStyle};
@@ -97,6 +97,14 @@ function init(preset, displayBorder, displayBackgrounds) {
         maxWidth = "none";
       }
 
+      const defaultBackgroundColors = {
+        column: 'rgba(234, 23, 140, .3)',
+        innerContainer: 'rgba(0, 231, 255, .3)',
+        outerContainer: 'rgba(0, 191, 165, .3)',
+      }
+
+      breakpoint.backgroundColors = { ...defaultBackgroundColors, ...breakpoint.backgroundColors };
+
       style.id = id;
       style.innerHTML = addStyles({
         index,
@@ -111,7 +119,10 @@ function init(preset, displayBorder, displayBackgrounds) {
         offsetRight: breakpoint.offsetRight ? breakpoint.offsetRight : 0,
         offsetBottom: breakpoint.offsetBottom ? breakpoint.offsetBottom : 0,
         offsetLeft: breakpoint.offsetLeft ? breakpoint.offsetLeft : 0,
-        displayBackgrounds
+        displayBackgrounds,
+        columnBackgroundColor: breakpoint.backgroundColors.column,
+        innerContainerBackgroundColor: breakpoint.backgroundColors.innerContainer,
+        outerContainerBackgroundColor: breakpoint.backgroundColors.outerContainer,
       });
 
       document.body.appendChild(style);
