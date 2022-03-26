@@ -106,12 +106,12 @@ function init(preset, displayBorder, displayBackgrounds) {
       const defaultBackgroundColors = {
         columns: "rgba(234, 23, 140, .3)",
         gutters: "rgba(0, 231, 255, .3)",
-        margins: "rgba(0, 191, 165, .3)"
+        margins: "rgba(0, 191, 165, .3)",
       };
 
       breakpoint.backgroundColors = {
         ...defaultBackgroundColors,
-        ...breakpoint.backgroundColors
+        ...breakpoint.backgroundColors,
       };
 
       style.id = id;
@@ -131,7 +131,7 @@ function init(preset, displayBorder, displayBackgrounds) {
         displayBackgrounds,
         columnsBackgroundColor: breakpoint.backgroundColors.columns,
         guttersBackgroundColor: breakpoint.backgroundColors.gutters,
-        marginsBackgroundColor: breakpoint.backgroundColors.margins
+        marginsBackgroundColor: breakpoint.backgroundColors.margins,
       });
 
       document.body.appendChild(style);
@@ -151,10 +151,11 @@ function destroy() {
   grids.remove();
 }
 
-chrome.runtime.onMessage.addListener(function(request) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.type === "stop") {
     destroy();
   } else if (request.type === "start") {
     init(request.preset, request.displayBorder, request.displayBackgrounds);
   }
+  sendResponse({});
 });
