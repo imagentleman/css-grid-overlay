@@ -33,21 +33,21 @@ const defaultPreset = [
     margins: 16,
     gutters: 16,
     from: 0,
-    to: 599
+    to: 599,
   },
   {
     columns: 8,
     margins: 16,
     gutters: 16,
     from: 600,
-    to: 719
+    to: 719,
   },
   {
     columns: 8,
     margins: 24,
     gutters: 24,
     from: 720,
-    to: 839
+    to: 839,
   },
   {
     columns: 12,
@@ -55,31 +55,31 @@ const defaultPreset = [
     gutters: 24,
     from: 840,
     to: 7680, // 8k
-    maxWidth: 1440
-  }
+    maxWidth: 1440,
+  },
 ];
 
 function displayGrid(tab) {
-  chrome.browserAction.setIcon({
+  chrome.action.setIcon({
     path: {
-      "16": "on-16.png",
-      "24": "on-24.png",
-      "32": "on-32.png"
-    }
+      16: "on-16.png",
+      24: "on-24.png",
+      32: "on-32.png",
+    },
   });
 
   chrome.storage.sync.get(
     {
       activePreset: { name: "Default (Material)", preset: defaultPreset },
       displayBorder: true,
-      displayBackgrounds: true
+      displayBackgrounds: true,
     },
-    function(items) {
+    function (items) {
       chrome.tabs.sendMessage(tab.id, {
         type: "start",
         preset: items.activePreset.preset,
         displayBorder: items.displayBorder || false,
-        displayBackgrounds: items.displayBackgrounds || false
+        displayBackgrounds: items.displayBackgrounds || false,
       });
     }
   );
@@ -89,19 +89,22 @@ function start(tab) {
   if (activeTabs[tab.id]) {
     activeTabs[tab.id] = false;
 
-    chrome.browserAction.setIcon({
+    chrome.action.setIcon({
       path: {
-        "16": "off-16.png",
-        "24": "off-24.png",
-        "32": "off-32.png"
-      }
+        16: "off-16.png",
+        24: "off-24.png",
+        32: "off-32.png",
+      },
     });
 
     chrome.tabs.sendMessage(tab.id, { type: "stop" });
   } else {
     if (!readyTabs[tab.id]) {
-      chrome.tabs.executeScript(tab.id, {
-        file: "content.js"
+      chrome.scripting.executeScript({
+        target: {
+          tabId: tab.id,
+        },
+        files: ["content.js"],
       });
 
       readyTabs[tab.id] = true;
@@ -117,20 +120,23 @@ function restart(tab) {
   if (activeTabs[tab.id]) {
     displayGrid(tab);
   } else {
-    chrome.browserAction.setIcon({
+    chrome.action.setIcon({
       path: {
-        "16": "off-16.png",
-        "24": "off-24.png",
-        "32": "off-32.png"
-      }
+        16: "off-16.png",
+        24: "off-24.png",
+        32: "off-32.png",
+      },
     });
   }
 }
 
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.action.onClicked.addListener(function (tab) {
   if (!readyTabs[tab.id]) {
-    chrome.tabs.executeScript(tab.id, {
-      file: "content.js"
+    chrome.scripting.executeScript({
+      target: {
+        tabId: tab.id,
+      },
+      files: ["content.js"],
     });
 
     readyTabs[tab.id] = true;
@@ -139,31 +145,31 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   start(tab);
 });
 
-chrome.tabs.onRemoved.addListener(function(tabId) {
+chrome.tabs.onRemoved.addListener(function (tabId) {
   delete activeTabs[tabId];
   delete readyTabs[tabId];
 });
 
-chrome.tabs.onActivated.addListener(function(activeInfo) {
+chrome.tabs.onActivated.addListener(function (activeInfo) {
   restart({ id: activeInfo.tabId });
 });
 
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
   if (changeInfo.status === "complete") {
     readyTabs[tabId] = false;
     activeTabs[tabId] = false;
 
-    chrome.browserAction.setIcon({
+    chrome.action.setIcon({
       path: {
-        "16": "off-16.png",
-        "24": "off-24.png",
-        "32": "off-32.png"
-      }
+        16: "off-16.png",
+        24: "off-24.png",
+        32: "off-32.png",
+      },
     });
   }
 });
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.type === "getDefaultPreset") {
     sendResponse({ name: "Default (Material)", preset: defaultPreset });
   } else if (request.type === "getTemplatePreset") {
