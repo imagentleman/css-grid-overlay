@@ -1,5 +1,3 @@
-const activeTabs = {};
-const readyTabs = {};
 const templatePreset = `[
   {
     "columns": 4,
@@ -86,19 +84,63 @@ function displayGrid(tab) {
 }
 
 function start(tab) {
-  if (activeTabs[tab.id]) {
-    activeTabs[tab.id] = false;
+  chrome.storage.local.get(
+    ["activeTabs", "readyTabs"],
+    ({ activeTabs = {}, readyTabs = {} }) => {
+      if (activeTabs[tab.id]) {
+        activeTabs[tab.id] = false;
 
-    chrome.action.setIcon({
-      path: {
-        16: "off-16.png",
-        24: "off-24.png",
-        32: "off-32.png",
-      },
-    });
+        chrome.storage.local.set({ activeTabs });
 
-    chrome.tabs.sendMessage(tab.id, { type: "stop" });
-  } else {
+        chrome.action.setIcon({
+          path: {
+            16: "off-16.png",
+            24: "off-24.png",
+            32: "off-32.png",
+          },
+        });
+
+        chrome.tabs.sendMessage(tab.id, { type: "stop" });
+      } else {
+        if (!readyTabs[tab.id]) {
+          chrome.scripting.executeScript({
+            target: {
+              tabId: tab.id,
+            },
+            files: ["content.js"],
+          });
+
+          readyTabs[tab.id] = true;
+        }
+
+        activeTabs[tab.id] = true;
+
+        chrome.storage.local.set({ readyTabs, activeTabs });
+
+        displayGrid(tab);
+      }
+    }
+  );
+}
+
+function restart(tab) {
+  chrome.storage.local.get(["activeTabs"], ({ activeTabs = {} }) => {
+    if (activeTabs[tab.id]) {
+      displayGrid(tab);
+    } else {
+      chrome.action.setIcon({
+        path: {
+          16: "off-16.png",
+          24: "off-24.png",
+          32: "off-32.png",
+        },
+      });
+    }
+  });
+}
+
+chrome.action.onClicked.addListener(function (tab) {
+  chrome.storage.local.get(["readyTabs"], ({ readyTabs = {} }) => {
     if (!readyTabs[tab.id]) {
       chrome.scripting.executeScript({
         target: {
@@ -108,46 +150,24 @@ function start(tab) {
       });
 
       readyTabs[tab.id] = true;
+
+      chrome.storage.local.set({ readyTabs });
     }
 
-    activeTabs[tab.id] = true;
-
-    displayGrid(tab);
-  }
-}
-
-function restart(tab) {
-  if (activeTabs[tab.id]) {
-    displayGrid(tab);
-  } else {
-    chrome.action.setIcon({
-      path: {
-        16: "off-16.png",
-        24: "off-24.png",
-        32: "off-32.png",
-      },
-    });
-  }
-}
-
-chrome.action.onClicked.addListener(function (tab) {
-  if (!readyTabs[tab.id]) {
-    chrome.scripting.executeScript({
-      target: {
-        tabId: tab.id,
-      },
-      files: ["content.js"],
-    });
-
-    readyTabs[tab.id] = true;
-  }
-
-  start(tab);
+    start(tab);
+  });
 });
 
 chrome.tabs.onRemoved.addListener(function (tabId) {
-  delete activeTabs[tabId];
-  delete readyTabs[tabId];
+  chrome.storage.local.get(
+    ["activeTabs", "readyTabs"],
+    ({ activeTabs = {}, readyTabs = {} }) => {
+      delete activeTabs[tabId];
+      delete readyTabs[tabId];
+
+      chrome.storage.local.set({ readyTabs, activeTabs });
+    }
+  );
 });
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {
@@ -155,18 +175,25 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 });
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
-  if (changeInfo.status === "complete") {
-    readyTabs[tabId] = false;
-    activeTabs[tabId] = false;
+  chrome.storage.local.get(
+    ["activeTabs", "readyTabs"],
+    ({ activeTabs = {}, readyTabs = {} }) => {
+      if (changeInfo.status === "complete") {
+        readyTabs[tabId] = false;
+        activeTabs[tabId] = false;
 
-    chrome.action.setIcon({
-      path: {
-        16: "off-16.png",
-        24: "off-24.png",
-        32: "off-32.png",
-      },
-    });
-  }
+        chrome.storage.local.set({ readyTabs, activeTabs });
+
+        chrome.action.setIcon({
+          path: {
+            16: "off-16.png",
+            24: "off-24.png",
+            32: "off-32.png",
+          },
+        });
+      }
+    }
+  );
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
