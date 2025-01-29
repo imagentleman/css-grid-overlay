@@ -123,7 +123,7 @@ function init(preset, displayBorder, displayBackgrounds) {
         gutters: breakpoint.gutters,
         columns: breakpoint.columns,
         maxWidth: maxWidth,
-        borderStyle: displayBorder ? "1px solid #EA178C" : "0",
+        borderStyle: displayBorder ? (breakpoint.customBorderStyle) ? breakpoint.customBorderStyle : "1px solid #EA178C" : "0",
         offsetTop: breakpoint.offsetTop ? breakpoint.offsetTop : 0,
         offsetRight: breakpoint.offsetRight ? breakpoint.offsetRight : 0,
         offsetBottom: breakpoint.offsetBottom ? breakpoint.offsetBottom : 0,
